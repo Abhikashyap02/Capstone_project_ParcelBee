@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Dashboard - ParcelBee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom CSS for ParcelBee Partner Dashboard */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        /* Smooth transitions for all interactive elements */
+        *, *::before, *::after {
+            transition: all 0.2s ease-in-out;
+        }
+        
+
+        /* ensure dashboard-card behaves as a flexible column and stretches equally */
+        .dashboard-card { display: flex; flex-direction: column; }
+        .dashboard-card .flex-1 { overflow-y: auto; } /* if many items, scroll inside column */
+
+        /* Enhanced button interactions */
+        button, .btn {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        button:hover, .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active, .btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Card hover effects */
+        .dashboard-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Request card animations */
+        .request-card {
+            animation: slideInUp 0.4s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Status badge animations */
+        .status-badge {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile menu transition */
+        #mobile-menu {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top;
+        }
+        
+        #mobile-menu.hidden {
+            transform: scaleY(0);
+            opacity: 0;
+        }
+        
+        #mobile-menu:not(.hidden) {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        
+        /* Loading animation */
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #facc15;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #eab308;
+        }
+        
+        /* Panel container animations */
+        .available-panel {
+            animation: fadeInLeft 0.6s ease-out;
+        }
+        
+        .active-panel {
+            animation: fadeInRight 0.6s ease-out;
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Success message animation */
+        .success-message {
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Payment amount highlight */
+        .payment-amount {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde047 100%);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(250, 204, 21, 0.3);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(250, 204, 21, 0.6);
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-2xl font-bold text-yellow-500 hover:text-yellow-600 transition-colors">
+                        ParcelBee 🐝
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="partner.html" class="text-yellow-500 font-semibold border-b-2 border-yellow-500 pb-1">Dashboard</a>
+                        <a href="#" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">Active Deliveries</a>
+                        <a href="#" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">Earnings</a>
+                        <a href="#" onclick="if(window.API && window.API.logout) { window.API.logout(); } else { localStorage.removeItem('token'); sessionStorage.removeItem('token'); window.location.href='login.html'; } return false;" class="text-gray-800 hover:text-red-500 transition-colors font-medium">Logout</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 hover:text-yellow-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+                <a href="partner.html" class="block text-yellow-500 font-semibold px-3 py-2">Dashboard</a>
+                <a href="#" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">Active Deliveries</a>
+                <a href="#" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">Earnings</a>
+                <a href="#" onclick="if(window.API && window.API.logout) { window.API.logout(); } else { localStorage.removeItem('token'); sessionStorage.removeItem('token'); window.location.href='login.html'; } return false;" class="block text-gray-800 hover:text-red-500 px-3 py-2 font-medium">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="pt-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Welcome Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Partner Dashboard 🚚</h1>
+                <p class="text-gray-600">Manage your delivery requests and track your earnings</p>
+            </div>
+
+            <!-- Dashboard Grid -->
+             
+            <!-- START: Two-column partner deliveries layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Available Deliveries (Partner can accept these) -->
+<div class="dashboard-card bg-white rounded-xl shadow-md p-6 h-full flex flex-col">
+    <div class="flex items-center mb-6">
+        <div class="text-2xl mr-3">📬</div>
+        <h2 class="text-xl font-bold text-gray-800">Available Deliveries</h2>
+    </div>
+
+    <div id="availableRequestsList" class="space-y-4 flex-1 overflow-hidden">
+        <!-- Available delivery cards inserted here by JS -->
+    </div>
+
+    <div id="availableEmptyState" class="text-center py-8 hidden">
+        <div class="text-6xl mb-4">📭</div>
+        <h3 class="text-lg font-semibold text-gray-600 mb-2">No available deliveries</h3>
+        <p class="text-gray-500">New delivery requests will appear here.</p>
+    </div>
+</div>
+
+        <!-- Left column: Active Deliveries -->
+        <div class="dashboard-card bg-white rounded-xl shadow-md p-6 h-full flex flex-col">
+            <div class="flex items-center mb-6">
+            <div class="text-2xl mr-3">🚚</div>
+            <h2 class="text-xl font-bold text-gray-800">My Active Deliveries</h2>
+            </div>
+
+            <div id="activeDeliveriesList" class="space-y-4 flex-1 overflow-hidden">
+            <!-- Active delivery cards inserted here by JS -->
+            </div>
+
+            <div id="activeEmptyState" class="text-center py-8 hidden">
+            <div class="text-6xl mb-4">📭</div>
+            <h3 class="text-lg font-semibold text-gray-600 mb-2">No active deliveries</h3>
+            <p class="text-gray-500">Accept available requests to see them here.</p>
+            </div>
+        </div>
+
+        <!-- Right column: Past Deliveries -->
+        <div class="dashboard-card bg-white rounded-xl shadow-md p-6 h-full flex flex-col">
+            <div class="flex items-center mb-6">
+            <div class="text-2xl mr-3">📦</div>
+            <h2 class="text-xl font-bold text-gray-800">Past Deliveries</h2>
+            </div>
+
+            <div id="pastDeliveriesList" class="space-y-4 flex-1 overflow-hidden">
+            <!-- Past delivery cards inserted here by JS -->
+            </div>
+
+            <div id="pastEmptyState" class="text-center py-8 hidden">
+            <div class="text-6xl mb-4">🎉</div>
+            <h3 class="text-lg font-semibold text-gray-600 mb-2">No past deliveries yet</h3>
+            <p class="text-gray-500">Completed or cancelled deliveries will appear here.</p>
+            </div>
+        </div>
+        </div>
+<!-- END: Two-column partner deliveries layout -->
+
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage" class="success-message mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg hidden">
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span id="successText">Action completed successfully!</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-500">&copy; 2025 ParcelBee Partner Panel.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="api.js"></script>
+    <script src="partner.js"></script>
+</body>
+</html>

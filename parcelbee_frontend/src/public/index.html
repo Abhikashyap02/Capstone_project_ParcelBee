@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParcelBee - Deliver Smarter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-yellow-500 hover:text-yellow-600 transition-colors">
+                        ParcelBee 🐝
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">Home</a>
+                        <a href="#about" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">About</a>
+                        <a href="#how-it-works" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">How it Works</a>
+                        <a href="#contact" class="text-gray-800 hover:text-yellow-500 transition-colors font-medium">Contact</a>
+                        <a href="login.html" class="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors">Login</a>
+                        <a href="signup.html" class="border-2 border-yellow-500 text-yellow-600 px-4 py-2 rounded-lg hover:bg-yellow-500 hover:text-white transition-colors">Sign Up</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 hover:text-yellow-500 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+                <a href="#home" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">Home</a>
+                <a href="#about" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">About</a>
+                <a href="#how-it-works" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">How it Works</a>
+                <a href="#contact" class="block text-gray-800 hover:text-yellow-500 px-3 py-2 font-medium">Contact</a>
+                <a href="login.html" class="block bg-yellow-500 text-white px-3 py-2 rounded-lg hover:bg-yellow-600 transition-colors mx-3 mt-2 text-center">Login</a>
+                <a href="signup.html" class="block border-2 border-yellow-500 text-yellow-600 px-3 py-2 rounded-lg hover:bg-yellow-500 hover:text-white transition-colors mx-3 mt-2 text-center">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-16 bg-gradient-to-br from-yellow-50 to-orange-50 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight mb-6">
+                        Deliver Smarter with 
+                        <span class="text-yellow-500">ParcelBee</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        Your trusted crowdsourced delivery partner—fast, affordable, and reliable.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-yellow-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-600 hover:scale-105 transition-all shadow-md">
+                            Book a Delivery
+                        </button>
+                        <button class="border-2 border-yellow-500 text-yellow-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-yellow-500 hover:text-white hover:scale-105 transition-all">
+                            Become a Partner
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Content - Illustration -->
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative">
+                        <div class="w-80 h-80 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <div class="text-8xl">📦🐝</div>
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-24 h-24 bg-yellow-500 rounded-full flex items-center justify-center text-white text-2xl animate-bounce">
+                            🚀
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">Why Choose ParcelBee?</h2>
+                <p class="text-xl text-gray-600">Experience the future of delivery services</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="hover-card text-center p-8 rounded-xl bg-gray-50">
+                    <div class="text-5xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Lightning Fast</h3>
+                    <p class="text-gray-600">Get your parcels delivered within hours, not days.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="hover-card text-center p-8 rounded-xl bg-gray-50">
+                    <div class="text-5xl mb-4">📍</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Live Tracking</h3>
+                    <p class="text-gray-600">Track every step of your delivery in real time.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="hover-card text-center p-8 rounded-xl bg-gray-50">
+                    <div class="text-5xl mb-4">🐝</div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Trusted Network</h3>
+                    <p class="text-gray-600">Verified partners ensuring safe deliveries.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600">Simple steps to get your delivery started</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="relative mb-8">
+                        <div class="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mx-auto text-white text-2xl font-bold shadow-lg">
+                            1
+                        </div>
+                        <div class="text-4xl mt-4">📱</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Book a Delivery</h3>
+                    <p class="text-gray-600">Use our platform to book a delivery on ParcelBee in seconds.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="relative mb-8">
+                        <div class="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mx-auto text-white text-2xl font-bold shadow-lg">
+                            2
+                        </div>
+                        <div class="text-4xl mt-4">🏃‍♂️</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Partner Pickup</h3>
+                    <p class="text-gray-600">A verified partner picks up your parcel from the specified location.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="relative mb-8">
+                        <div class="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mx-auto text-white text-2xl font-bold shadow-lg">
+                            3
+                        </div>
+                        <div class="text-4xl mt-4">✅</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Delivery Complete</h3>
+                    <p class="text-gray-600">Your parcel is delivered seamlessly to the destination.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-yellow-500">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+                Join ParcelBee today and simplify your deliveries!
+            </h2>
+            <p class="text-xl text-yellow-100 mb-8">
+                Experience fast, reliable, and affordable delivery services.
+            </p>
+            <button class="bg-white text-yellow-500 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 hover:scale-105 transition-all shadow-lg">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Logo -->
+                <div class="text-center md:text-left">
+                    <div class="text-2xl font-bold text-yellow-500 mb-2">ParcelBee 🐝</div>
+                    <p class="text-gray-400">Delivering smarter, together.</p>
+                </div>
+
+                <!-- Links -->
+                <div class="text-center">
+                    <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6">
+                        <a href="#about" class="text-gray-300 hover:text-yellow-500 transition-colors">About</a>
+                        <a href="#how-it-works" class="text-gray-300 hover:text-yellow-500 transition-colors">How it Works</a>
+                        <a href="#contact" class="text-gray-300 hover:text-yellow-500 transition-colors">Contact</a>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="text-center md:text-right">
+                    <div class="flex justify-center md:justify-end space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-yellow-500 transition-colors text-2xl">📧</a>
+                        <a href="#" class="text-gray-300 hover:text-yellow-500 transition-colors text-2xl">💼</a>
+                        <a href="#" class="text-gray-300 hover:text-yellow-500 transition-colors text-2xl">🐦</a>
+                        <a href="#" class="text-gray-300 hover:text-yellow-500 transition-colors text-2xl">📷</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 ParcelBee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
