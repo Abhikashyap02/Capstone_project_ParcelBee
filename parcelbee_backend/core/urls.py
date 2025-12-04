@@ -9,6 +9,10 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     
+    # Password Reset
+    path('password/forgot/', views.forgot_password_request, name='forgot_password'),
+    path('password/reset/', views.reset_password_confirm, name='reset_password'),
+    
     # Delivery Management
     path('delivery/create/', views.create_delivery, name='create_delivery'),
     path('delivery/list/', views.list_deliveries, name='list_deliveries'),

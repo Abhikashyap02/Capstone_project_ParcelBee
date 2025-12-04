@@ -189,20 +189,15 @@
                     <div id="passwordError" class="text-red-500 text-sm mt-1 hidden">Password must be at least 6 characters</div>
                 </div>
 
-                <!-- Remember Me & Forgot Password -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input 
-                            type="checkbox" 
-                            id="remember" 
-                            name="remember"
-                            class="w-4 h-4 text-yellow-500 border-gray-300 rounded focus:ring-yellow-500 focus:ring-2"
-                        >
-                        <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
-                    </div>
-                    <a href="#" class="text-sm text-yellow-500 hover:text-yellow-600 transition-colors font-medium">
-                        Forgot password?
-                    </a>
+                <!-- Remember Me -->
+                <div class="flex items-center">
+                    <input 
+                        type="checkbox" 
+                        id="remember" 
+                        name="remember"
+                        class="w-4 h-4 text-yellow-500 border-gray-300 rounded focus:ring-yellow-500 focus:ring-2"
+                    >
+                    <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
                 </div>
 
                 <!-- Login Button -->
@@ -213,6 +208,13 @@
                     Login
                 </button>
             </form>
+
+            <!-- Forgot Password Link (Outside Form) -->
+            <div class="text-center mt-4">
+                <a href="forgot-password.html" class="text-sm text-yellow-500 hover:text-yellow-600 transition-colors font-medium">
+                    Forgot password?
+                </a>
+            </div>
 
             <!-- Divider -->
             <div class="my-8 flex items-center">

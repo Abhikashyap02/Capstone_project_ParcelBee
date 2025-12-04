@@ -6,7 +6,7 @@ from django.views.decorators.http import require_http_methods
 from django.contrib.auth import authenticate
 from django.utils import timezone
 from core.models import User, DeliveryRequest
-from core.utils import generate_jwt, json_response, get_json_data, auth_required
+from core.utils import generate_jwt, json_response, get_json_data, auth_required, generate_reset_token_payload, verify_reset_token
 from decimal import Decimal
 
 from django.http import JsonResponse
@@ -403,3 +403,82 @@ class PriceEstimateView(APIView):
             "geocode_error": geocode_error if not geocoding_used else None,
             # "note": geocode_note
         })
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def forgot_password_request(request):
+    """Request password reset - generates reset token"""
+    data = get_json_data(request)
+    
+    if not data:
+        return json_response({'error': 'Invalid JSON'}, status=400)
+    
+    email = data.get('email')
+    if not email:
+        return json_response({'error': 'Email is required'}, status=400)
+    
+    try:
+        user = User.objects.get(email=email)
+        
+        # Generate reset token
+        reset_token = generate_reset_token_payload(email)
+        
+        # In production, send email here with reset link
+        # For development, we'll return the token in response
+        # TODO: Send email with reset link: f"{FRONTEND_URL}/reset-password.html?token={reset_token}"
+        
+        return json_response({
+            'message': 'Password reset instructions have been sent to your email.',
+            'reset_token': reset_token,  # Remove this in production, only for development
+            'note': 'In production, check your email for reset link'
+        })
+        
+    except User.DoesNotExist:
+        # Don't reveal if email exists (security best practice)
+        return json_response({
+            'message': 'If the email exists, password reset instructions have been sent.'
+        })
+    except Exception as e:
+        return json_response({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def reset_password_confirm(request):
+    """Reset password using token"""
+    data = get_json_data(request)
+    
+    if not data:
+        return json_response({'error': 'Invalid JSON'}, status=400)
+    
+    token = data.get('token')
+    new_password = data.get('new_password')
+    
+    if not token or not new_password:
+        return json_response({'error': 'Token and new password are required'}, status=400)
+    
+    if len(new_password) < 6:
+        return json_response({'error': 'Password must be at least 6 characters'}, status=400)
+    
+    # Verify token
+    payload = verify_reset_token(token)
+    if not payload:
+        return json_response({'error': 'Invalid or expired reset token'}, status=400)
+    
+    email = payload.get('email')
+    if not email:
+        return json_response({'error': 'Invalid token'}, status=400)
+    
+    try:
+        user = User.objects.get(email=email)
+        user.set_password(new_password)
+        user.save()
+        
+        return json_response({
+            'message': 'Password reset successfully. Please login with your new password.'
+        })
+    except User.DoesNotExist:
+        return json_response({'error': 'User not found'}, status=404)
+    except Exception as e:
+        return json_response({'error': str(e)}, status=500)

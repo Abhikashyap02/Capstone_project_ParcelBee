@@ -100,3 +100,28 @@ def geocode_nominatim(address):
     if not data:
         raise ValueError("No geocoding result for: " + address)
     return float(data[0]["lat"]), float(data[0]["lon"])
+
+
+def generate_reset_token_payload(email):
+    """Generate JWT token for password reset (expires in 1 hour)"""
+    payload = {
+        'email': email,
+        'type': 'password_reset',
+        'exp': datetime.utcnow() + timedelta(hours=1),  # 1 hour expiry
+        'iat': datetime.utcnow()
+    }
+    token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+    return token
+
+
+def verify_reset_token(token):
+    """Verify password reset token"""
+    try:
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+        if payload.get('type') != 'password_reset':
+            return None
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
